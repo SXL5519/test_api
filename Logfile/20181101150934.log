@@ -1,0 +1,7 @@
+Thu, 01 Nov 2018 15:09:34 function.py[line:16] DEBUG debug message
+Thu, 01 Nov 2018 15:09:34 function.py[line:17] INFO info message
+Thu, 01 Nov 2018 15:09:34 function.py[line:18] WARNING warning message
+Thu, 01 Nov 2018 15:09:34 function.py[line:19] ERROR error message
+Thu, 01 Nov 2018 15:09:34 function.py[line:20] CRITICAL critical message
+Thu, 01 Nov 2018 15:09:34 connectionpool.py[line:823] DEBUG Starting new HTTPS connection (1): zuultest.godteam.net:443
+Thu, 01 Nov 2018 15:09:34 connectionpool.py[line:393] DEBUG https://zuultest.godteam.net:443 "POST /ajgsapp HTTP/1.1" 200 None

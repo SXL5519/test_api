@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>接口自动化测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.9.1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.common.min.js"></script>
+    <!-- <script type="text/javascript" src="js/echarts.common.min.js"></script> -->
+    
+    
+<style type="text/css" media="screen">
+    body        { font-family: Microsoft YaHei,Consolas,arial,sans-serif; font-size: 80%; }
+    table       { font-size: 100%; }
+    pre         { white-space: pre-wrap;word-wrap: break-word; }
+
+    /* -- heading ---------------------------------------------------------------------- */
+    h1 {
+        font-size: 16pt;
+        color: gray;
+    }
+    .heading {
+        margin-top: 0ex;
+        margin-bottom: 1ex;
+    }
+
+    .heading .attribute {
+        margin-top: 1ex;
+        margin-bottom: 0;
+    }
+
+    .heading .description {
+        margin-top: 2ex;
+        margin-bottom: 3ex;
+    }
+
+    /* -- css div popup ------------------------------------------------------------------------ */
+    a.popup_link {
+    }
+
+    a.popup_link:hover {
+        color: red;
+    }
+
+    .popup_window {
+        display: none;
+        position: relative;
+        left: 0px;
+        top: 0px;
+        /*border: solid #627173 1px; */
+        padding: 10px;
+        /*background-color: #E6E6D6; */
+        font-family: "Lucida Console", "Courier New", Courier, monospace;
+        text-align: left;
+        font-size: 8pt;
+        /* width: 500px;*/
+    }
+
+    }
+    /* -- report ------------------------------------------------------------------------ */
+    #show_detail_line {
+        margin-top: 3ex;
+        margin-bottom: 1ex;
+    }
+    #result_table {
+        width: 99%;
+    }
+    #header_row {
+        font-weight: bold;
+        color: #303641;
+        background-color: #ebebeb;
+    }
+    #total_row  { font-weight: bold; }
+    .passClass  { background-color: #bdedbc; }
+    .failClass  { background-color: #ffefa4; }
+    .errorClass { background-color: #ffc9c9; }
+    .passCase   { color: #6c6; }
+    .failCase   { color: #FF6600; font-weight: bold; }
+    .errorCase  { color: #c00; font-weight: bold; }
+    .hiddenRow  { display: none; }
+    .testcase   { margin-left: 2em; }
+
+
+    /* -- ending ---------------------------------------------------------------------- */
+    #ending {
+    }
+
+    #div_base {
+                position:absolute;
+                top:0%;
+                left:5%;
+                right:5%;
+                width: auto;
+                height: auto;
+                margin: -15px 0 0 0;
+    }
+</style>
+
+    
+</head>
+<body>
+    <script language="javascript" type="text/javascript"><!--
+    output_list = Array();
+
+    /* level - 0:Summary; 1:Failed; 2:All */
+    function showCase(level) {
+        trs = document.getElementsByTagName("tr");
+        for (var i = 0; i < trs.length; i++) {
+            tr = trs[i];
+            id = tr.id;
+            if (id.substr(0,2) == 'ft') {
+                if (level < 1) {
+                    tr.className = 'hiddenRow';
+                }
+                else {
+                    tr.className = '';
+                }
+            }
+            if (id.substr(0,2) == 'pt') {
+                if (level > 1) {
+                    tr.className = '';
+                }
+                else {
+                    tr.className = 'hiddenRow';
+                }
+            }
+        }
+    }
+
+
+    function showClassDetail(cid, count) {
+        var id_list = Array(count);
+        var toHide = 1;
+        for (var i = 0; i < count; i++) {
+            tid0 = 't' + cid.substr(1) + '.' + (i+1);
+            tid = 'f' + tid0;
+            tr = document.getElementById(tid);
+            if (!tr) {
+                tid = 'p' + tid0;
+                tr = document.getElementById(tid);
+            }
+            id_list[i] = tid;
+            if (tr.className) {
+                toHide = 0;
+            }
+        }
+        for (var i = 0; i < count; i++) {
+            tid = id_list[i];
+            if (toHide) {
+                document.getElementById('div_'+tid).style.display = 'none'
+                document.getElementById(tid).className = 'hiddenRow';
+            }
+            else {
+                document.getElementById(tid).className = '';
+            }
+        }
+    }
+
+
+    function showTestDetail(div_id){
+        var details_div = document.getElementById(div_id)
+        var displayState = details_div.style.display
+        // alert(displayState)
+        if (displayState != 'block' ) {
+            displayState = 'block'
+            details_div.style.display = 'block'
+        }
+        else {
+            details_div.style.display = 'none'
+        }
+    }
+
+
+    function html_escape(s) {
+        s = s.replace(/&/g,'&amp;');
+        s = s.replace(/</g,'&lt;');
+        s = s.replace(/>/g,'&gt;');
+        return s;
+    }
+
+    /* obsoleted by detail in <div>
+    function showOutput(id, name) {
+        var w = window.open("", //url
+                        name,
+                        "resizable,scrollbars,status,width=800,height=450");
+        d = w.document;
+        d.write("<pre>");
+        d.write(html_escape(output_list[id]));
+        d.write("\n");
+        d.write("<a href='javascript:window.close()'>close</a>\n");
+        d.write("</pre>\n");
+        d.close();
+    }
+    */
+    --></script>
+
+    <div id="div_base">
+        
+    <div class='page-header'>
+        <h1>接口自动化测试报告</h1>
+    <p class='attribute'><strong>开始时间:</strong> 2018-11-02 17:34:30</p>
+<p class='attribute'><strong>运行时长:</strong> 0:00:02.349000</p>
+<p class='attribute'><strong>状态:</strong> 通过 14 失败 1</p>
+
+    </div>
+    <div style="float: left;width:50%;"><p class='description'>运行环境：Python</p></div>
+    <div id="chart" style="width:50%;height:400px;float:left;"></div>
+
+        
+    <div class="btn-group btn-group-sm">
+        <button class="btn btn-default" onclick='javascript:showCase(0)'>总结</button>
+        <button class="btn btn-default" onclick='javascript:showCase(1)'>失败</button>
+        <button class="btn btn-default" onclick='javascript:showCase(2)'>全部</button>
+    </div>
+    <p></p>
+    <table id='result_table' class="table table-bordered">
+        <colgroup>
+            <col align='left' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+        </colgroup>
+        <tr id='header_row'>
+            <td>测试套件/测试用例</td>
+            <td>总数</td>
+            <td>通过</td>
+            <td>失败</td>
+            <td>错误</td>
+            <td>查看</td>
+        </tr>
+        
+    <tr class='failClass'>
+        <td>cases.AA</td>
+        <td>15</td>
+        <td>14</td>
+        <td>1</td>
+        <td>0</td>
+        <td><a href="javascript:showClassDetail('c1',15)">详情</a></td>
+    </tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_01: 登录</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        通过</a>
+
+    <div id='div_pt1.1' class="popup_window">
+        <pre>pt1.1: {'success': True, 'alertMsg': {'code': '000000', 'msg': '登录成功'}, 'data': {'id': '801122466705', 'scNO': 3, 'token': '22b3aec4b9a84593a85e12addd4638a3', 'openId': 'owFh9xFl7cX6OBZ7WQgvPrGddX1M', 'userName': 'ajgs1465622976', 'logo': 'https://static.ajgs.cn/product/1540352365000-FD131B8B.png', 'ajName': '艾家公社', 'boundCompanyId': '8000', 'telephone': '17602882784', 'wxPubOpeneId': 'oQbZA5pw0sfzo4okNRSKVTKRQLo0', 'isDist': False, 'refereeId': '800580161545'}}
+登录成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_02: 首页</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.2')" >
+        通过</a>
+
+    <div id='div_pt1.2' class="popup_window">
+        <pre>pt1.2: {'success': True, 'alertMsg': {'code': '000000'}, 'data': {'AStep': [{'_id': '5bcfe05d0b06ca6900c1067f', 'insideJumpFormat': 'goods', 'name': '艾尚艾家双11礼包', 'memo': '', 'picture': 'https://static.ajgs.cn/product/1540349888000-223C11D0.jpeg', 'insideJumpFormatVal': {'id': '5bcfddf60b06ca6900c105f6'}, 'advertisingPosition': 'HOME_PAGE_ONE'}, {'_id': '5ba9e4890b06ca3fcece6311', 'insideJumpFormat': 'fresh', 'name': '飞利浦专场', 'memo': '', 'picture': 'https://static.ajgs.cn/product/1537861542000-0563C2E8.jpeg', 'insideJumpFormatVal': {'id': '5ba9e4270b06ca3fcece62e2'}, 'advertisingPosition': 'HOME_PAGE_ONE'}], 'BStep': [{'_id': '5b338c210b06ca574e4f96a2', 'insideJumpFormat': 'fresh', 'name': '艾家自营', 'insideJumpFormatVal': {'id': '5b36e7b70b06ca02986c5325'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539077013000-02A2652B.jpeg'}, {'_id': '5b338a810b06ca574e4f9694', 'insideJumpFormat': 'fresh', 'name': '海外精选', 'insideJumpFormatVal': {'id': '5b36e1660b06ca02986c5317'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-41-317BC568.png'}, {'_id': '5b338bf00b06ca574e4f969e', 'insideJumpFormat': 'fresh', 'name': '艾家生活', 'insideJumpFormatVal': {'id': '5b36e1780b06ca02986c5318'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-44-370DD6C7.png'}, {'_id': '5b338a670b06ca574e4f9692', 'insideJumpFormat': 'fresh', 'name': '新品NEW', 'insideJumpFormatVal': {'id': '5b3604ce0b06ca02986c5291'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-47-F916581D.png'}, {'_id': '5b338c0a0b06ca574e4f96a0', 'insideJumpFormat': 'fresh', 'name': '艾家厨房', 'insideJumpFormatVal': {'id': '5b36e1830b06ca02986c5319'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-50-386FA680.png'}, {'_id': '5b338c6e0b06ca574e4f96a8', 'insideJumpFormat': 'fresh', 'name': '艾上实惠', 'insideJumpFormatVal': {'id': '5b36e4600b06ca02986c531a'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-53-2D29606F.png'}, {'_id': '5b338c590b06ca574e4f96a6', 'insideJumpFormat': 'fresh', 'name': '艾上生鲜', 'insideJumpFormatVal': {'id': '5b36e4790b06ca02986c531b'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-62-F761CF6A.png'}, {'_id': '5b338c3d0b06ca574e4f96a4', 'insideJumpFormat': 'merchantClassify', 'name': '艾家校园', 'insideJumpFormatVal': {'id': '5b3606a90b06ca02986c5295'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1535361184087-10-14826412.jpeg'}], 'CStep': [{'_id': '5bce79df0b06ca6900c0ffd2', 'insideJumpFormat': 'goods', 'name': '品牌一元购', 'memo': '', 'picture': 'https://static.ajgs.cn/product/1540948803000-DB6ECF91.jpeg', 'insideJumpFormatVal': {'id': '5bbb02650b06ca41678edf4e'}, 'advertisingPosition': 'HOME_PAGE_TWO'}, {'_id': '5bce7a580b06ca6900c0ffea', 'insideJumpFormat': 'goods', 'name': '品牌一元购', 'memo': '', 'picture': 'https://static.ajgs.cn/product/1540948813000-F4EAC9D5.jpeg', 'insideJumpFormatVal': {'id': '5b7fa7020b06ca3256aa2901'}, 'advertisingPosition': 'HOME_PAGE_TWO'}], 'DStep': [{'_id': '5b836b420b06ca3256aa3a2b', 'insideJumpFormat': 'fresh', 'name': '福袋专区', 'insideJumpFormatVal': {'id': '5ba4c1390b06ca3fcece49f5'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539667997000-27AEFD38.jpeg'}, {'_id': '5ba1a9c30b06ca08d098c937', 'insideJumpFormat': 'fresh', 'name': '9.9元专区', 'insideJumpFormatVal': {'id': '5ba0eeb50b06ca08d098c193'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539668010000-C0DFFA5A.jpeg'}, {'_id': '5ba1aa170b06ca08d098c991', 'insideJumpFormat': 'fresh', 'name': '19.9元专区', 'insideJumpFormatVal': {'id': '5ba0f0ed0b06ca08d098c22a'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539668021000-C33629CA.jpeg'}, {'_id': '5b338d210b06ca574e4f96aa', 'insideJumpFormat': 'fresh', 'name': '艾家自营', 'insideJumpFormatVal': {'id': '5b36e7b70b06ca02986c5325'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1540620126000-35865BF9.jpeg'}, {'_id': '5ba1aa380b06ca08d098c99c', 'insideJumpFormat': 'fresh', 'name': '29.9元专区', 'insideJumpFormatVal': {'id': '5ba0f21b0b06ca08d098c2b6'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539668035000-22AF3596.jpeg'}, {'_id': '5b338d670b06ca574e4f96ae', 'insideJumpFormat': 'fresh', 'name': '爱生活', 'insideJumpFormatVal': {'id': '5b36e5050b06ca02986c531e'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539668071000-314443B4.jpeg'}], 'EStep': [], 'FStep': [{'moduleName': '艾家公社专区', 'data': {'id': '5b18d7ca0b06ca7ab6d6bd74', 'pictureUrl': 'https://static.ajgs.cn/product/rc-upload-1530329485922-19.png', 'merchantName': '艾家公社', 'typeName': '日用品', 'describe': '日用品、消耗品、', 'miniPrice': '1.00', 'partitionName': '艾家公社专区', 'logoUrL': 'https://static.ajgs.cn/product/1540352365000-FD131B8B.png', 'storeName': '艾家公社'}}], 'GStep': [], 'HStep': [{'moduleName': '品牌艾家', 'data': [{'id': '5bdc1a044aa423331dc74944', 'pictureUrl': ['https://static.ajgs.cn/test/rc-upload-1530779577782-2-7644CE6B.png'], 'merchantName': 'B9CyoS9S商家名称', 'typeName': '商家类别QpsgG', 'describe': '商家类别描述！', 'miniPrice': '0.00', 'partitionName': 'B9CyoS9S商家名称专区'}, {'id': '5bdbfa764aa423da64e14018', 'pictureUrl': ['https://static.ajgs.cn/test/rc-upload-1530779577782-2-7644CE6B.png'], 'merchantName': 'aD1zAR6u商家名称', 'typeName': '商家类别BajpQ', 'describe': '商家类别描述！', 'miniPrice': '0.00', 'partitionName': 'aD1zAR6u商家名称专区'}, {'id': '5bdbfa624aa423da64e13fb2', 'pictureUrl': ['https://static.ajgs.cn/test/rc-upload-1530779577782-2-7644CE6B.png'], 'merchantName': 'pEQqWvnt商家名称', 'typeName': '商家类别sMVjD', 'describe': '商家类别描述！', 'miniPrice': '0.00', 'partitionName': 'pEQqWvnt商家名称专区'}, {'id': '5bdbf9f04aa423da64e13f4c', 'pictureUrl': ['https://static.ajgs.cn/test/rc-upload-1530779577782-2-7644CE6B.png'], 'merchantName': 'ovtSaI3M商家名称', 'typeName': '商家类别y6703', 'describe': '商家类别描述！', 'miniPrice': '0.00', 'partitionName': 'ovtSaI3M商家名称专区'}]}], 'IStep': [], 'LStep': [{'promotionId': '5b3746dd0b06ca02986c551d', 'promomtionName': '限量1元购', 'promotionType': 'GOODS_TYPE', 'renderType': 'VERTICAL_SHOW', 'promotionDetail': [{'goodsId': '5b7fa7020b06ca3256aa2901', 'goodsName': '金龙鱼非转基因压榨外婆乡小榨菜籽油400ml', 'nowMarkPrice': '13.00', 'currentPrice': '1.00', 'goodPic': 'https://static.ajgs.cn/product/rc-upload-1535092026172-5-F14D40CA.jpeg', 'isAdFee': True}, {'goodsId': '5bbb02650b06ca41678edf4e', 'goodsName': '山西上水井老陈醋三年陈酿小白盒醋150ml', 'nowMarkPrice': '15.00', 'currentPrice': '1.00', 'goodPic': 'https://static.ajgs.cn/product/1540951329000-FD25DFA5.jpeg', 'isAdFee': True}], 'advertise': []}, {'promotionId': '5b373f4d0b06ca02986c54e1', 'promomtionName': '专题精选', 'promotionType': 'THEMATIC_TYPE', 'renderType': 'HORIZONTAL_SHOW', 'promotionDetail': [{'themeId': '5bb06d7b0b06ca08c77df565', 'themeName': '什么是福袋？', 'describe': '福袋', 'money': '10.00', 'themePic': 'https://static.ajgs.cn/product/1538289018000-B617432F.jpeg'}, {'themeId': '5b7d2a710b06ca384a4f6410', 'themeName': '艾家公社粮票详解', 'describe': '什么是粮票？粮票可以做什么？如何得到粮票？', 'money': '19.90', 'themePic': 'https://static.ajgs.cn/product/rc-upload-1534928578482-2-C8660B54.jpeg'}], 'advertise': []}], 'JStep': []}, 'shareMsg': {'title': '艾家公社微信购物全新升级', 'titleReplace': {'userName': '', 'payMoney': '', 'payType': '', 'redPacketNum': '', 'redPacketTotal': '', 'merchantName': '', 'merchantDesc': '', 'themeName': '', 'themeDesc': '', 'goodsName': '', 'goodsPrice': '', 'articleTitle': '', 'articleContent': '', 'menuName': '', 'award': ''}, 'description': '艾家公社微信购物全新升级啦！和好友一起挑选好货，一起晒单赢大奖！', 'desReplace': {'userName': '', 'payMoney': '', 'payType': '', 'redPacketNum': '', 'redPacketTotal': '', 'merchantName': '', 'merchantDesc': '', 'themeName': '', 'themeDesc': '', 'goodsName': '', 'goodsPrice': '', 'articleTitle': '', 'articleContent': '', 'menuName': '', 'award': '', 'out': {}}, 'link': 'https://yqltest.godteam.net/default?parentId=&amp;boundCompanyId=', 'linkReplace': {'params': '', 'type': '/default', 'out': {}}, 'picture': 'https://static.ajgs.cn/product/1540352365000-FD131B8B.png'}}
+查询成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_03: 猜你喜欢</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.3')" >
+        通过</a>
+
+    <div id='div_pt1.3' class="popup_window">
+        <pre>pt1.3: {'success': True, 'alertMsg': {'code': '000000'}, 'data': {'moduleName': '猜你喜欢', 'data': [{'id': '5bbd98990b06ca4c8ccacde0', 'name': '多仁可家用长柄艺术软毛马桶刷', 'subtitle': '多仁可家用长柄艺术软毛马桶刷', 'goodsPic': 'https://static.ajgs.cn/product/1539151981000-51F19AFB.jpeg', 'currentPrice': '16.80', 'markPrice': '21.00', 'isAdFee': True}, {'id': '5b9b30c5a81ff768aab43daf', 'name': '迪士尼苏菲亚公主可爱铅笔袋', 'subtitle': '迪士尼苏菲亚公主可爱铅笔袋', 'goodsPic': 'https://static.ajgs.cn/product/1536897148000-B9FDAB44.jpeg', 'currentPrice': '39.00', 'markPrice': '48.00', 'isAdFee': False}, {'id': '5b2b76750b06ca7ab6d6c297', 'name': '七度空间甜睡超薄338mm夜用8片*3包', 'subtitle': '七度空间甜睡超薄338mm夜用8片*3包', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1529571016208-143.png', 'currentPrice': '27.00', 'markPrice': '35.00', 'isAdFee': True}, {'id': '5bb1c17c0b06ca41678ed4bc', 'name': '飞科电动鼻毛修剪器FS7805', 'subtitle': '飞科电动鼻毛修剪器FS7805', 'goodsPic': 'https://static.ajgs.cn/product/1538376024000-BE57B3B5.jpeg', 'currentPrice': '25.00', 'markPrice': '39.00', 'isAdFee': True}, {'id': '5bc598e50b06ca23f29fd985', 'name': '澳大利亚怀德西拉干红葡萄酒', 'subtitle': '澳大利亚怀德西拉干红葡萄酒', 'goodsPic': 'https://static.ajgs.cn/product/1539676239000-0547CFC3.jpeg', 'currentPrice': '300.00', 'markPrice': '400.00', 'isAdFee': False}, {'id': '5bceb8d40b06ca6900c10222', 'name': '（中医大配送）双汇新王中王火腿肠30g', 'subtitle': '（中医大配送）双汇新王中王火腿肠30g', 'goodsPic': 'https://static.ajgs.cn/product/1540274200000-16541DFD.jpeg', 'currentPrice': '1.00', 'markPrice': '1.50', 'isAdFee': True}, {'id': '5b2b90d40b06ca7ab6d6c447', 'name': '苗岭妹刺梨醇清香型白酒2瓶礼盒装', 'subtitle': '苗岭妹刺梨醇清香型白酒2瓶礼盒装', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1529581577649-5.jpeg', 'currentPrice': '89.80', 'markPrice': '99.80', 'isAdFee': True}, {'id': '5b88a4710b06ca13b59aef4e', 'name': '三合一折叠修眉刀', 'subtitle': '三合一折叠修眉刀', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1535681338516-11-D5976B6C.jpeg', 'currentPrice': '16.00', 'markPrice': '19.90', 'isAdFee': False}, {'id': '5b333cd10b06ca574e4f8ea3', 'name': '澳洲Swisse男性前列腺片50粒', 'subtitle': '澳洲Swisse男性前列腺片50粒', 'goodsPic': 'https://static.ajgs.cn/test/rc-upload-1530083170642-19.png', 'currentPrice': '119.00', 'markPrice': '190.00', 'isAdFee': True}, {'id': '5b6261ea0b06ca734cd10ddb', 'name': '小麦秆米奇三件套儿童餐具', 'subtitle': '小麦秆米奇三件套儿童餐具', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1533173671191-14-30B0997D.png', 'currentPrice': '15.00', 'markPrice': '25.00', 'isAdFee': False}, {'id': '5b2b8f210b06ca7ab6d6c408', 'name': '禧天龙耐热高鹏硅玻璃保鲜盒系列', 'subtitle': '禧天龙耐热高鹏硅玻璃保鲜盒系列', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1529576786257-52.png', 'currentPrice': '9.90', 'markPrice': '19.00', 'isAdFee': True}, {'id': '5b87b7e30b06ca13b59ae613', 'name': '溢田杂粮有机玉米糁950g', 'subtitle': '溢田杂粮有机玉米糁950g', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1535619774428-84-98E789F3.jpeg', 'currentPrice': '26.00', 'markPrice': '31.90', 'isAdFee': False}, {'id': '5b3723dc0b06ca02986c53ed', 'name': '[海外直邮]兰芝水衡清盈精华水', 'subtitle': '[海外直邮]兰芝水衡清盈精华水', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1530330900626-51.png', 'currentPrice': '205.00', 'markPrice': '216.00', 'isAdFee': True}, {'id': '5b39f77c0b06ca3ecc27ebf7', 'name': '得力6034办公剪刀小号160mm', 'subtitle': '得力6034办公剪刀小号160mm', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1530515228977-118-96183540.png', 'currentPrice': '3.40', 'markPrice': '7.80', 'isAdFee': True}, {'id': '5b32f0450b06ca4c2b845f97', 'name': 'Oh Baby清洁去角质磨砂膏570g', 'subtitle': 'Oh Baby清洁去角质磨砂膏570g', 'goodsPic': 'https://static.ajgs.cn/test/rc-upload-1530064615357-5.png', 'currentPrice': '169.00', 'markPrice': '175.00', 'isAdFee': True}, {'id': '5b2de9120b06ca57b083f64e', 'name': '皮皮狗电热蚊香液45ml*2瓶/盒', 'subtitle': '皮皮狗电热蚊香液45ml*2瓶/盒', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1529733234545-20.jpeg', 'currentPrice': '19.80', 'markPrice': '23.00', 'isAdFee': True}, {'id': '5b80d2050b06ca3256aa310b', 'name': '（商院配送）卫龙亲嘴烧2个装', 'subtitle': '（商院配送）卫龙亲嘴烧2个装', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1535167798240-64-6B2E2E1A.jpeg', 'currentPrice': '1.00', 'markPrice': '3.00', 'isAdFee': False}, {'id': '5b4849880b06ca60af0d30f5', 'name': '南孚碱性电池7号', 'subtitle': '南孚碱性电池7号', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1531460883520-19-3C29F187.png', 'currentPrice': '11.20', 'markPrice': '15.50', 'isAdFee': True}, {'id': '5b6d0ad50b06ca228f2f1fd2', 'name': '便携式弓形拉力牙线棒', 'subtitle': '便携式弓形拉力牙线棒', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1533872641977-5-5A6B46C4.jpeg', 'currentPrice': '5.00', 'markPrice': '11.00', 'isAdFee': False}, {'id': '5bcfead20b06ca6900c10719', 'name': '（中医大配送）喜之郎CiCi香橙味果冻150g', 'subtitle': '（中医大配送）喜之郎CiCi香橙味果冻150g', 'goodsPic': 'https://static.ajgs.cn/product/1540352663000-C8D1BB30.jpeg', 'currentPrice': '2.50', 'markPrice': '3.50', 'isAdFee': True}, {'id': '5bd6c2490b06ca51484decfb', 'name': '安安金纯橄榄油柔顺洗发露', 'subtitle': '安安金纯橄榄油柔顺洗发露', 'goodsPic': 'https://static.ajgs.cn/product/1540800987000-5ACBB0DE.jpeg', 'currentPrice': '19.90', 'markPrice': '31.00', 'isAdFee': True}, {'id': '5b5535310b06ca3b713bf4c5', 'name': '（兰兰艾家）康师傅茉莉蜜茶500ml', 'subtitle': '（兰兰艾家）康师傅茉莉蜜茶500ml', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1533797047831-15-43E66195.jpeg', 'currentPrice': '3.00', 'markPrice': '3.00', 'isAdFee': False}, {'id': '5bc041030b06ca4c8ccadd78', 'name': '飞利浦3D智能贴合电动剃须刀', 'subtitle': '飞利浦3D智能贴合电动剃须刀', 'goodsPic': 'https://static.ajgs.cn/product/1539326129000-7784AFB2.jpeg', 'currentPrice': '799.00', 'markPrice': '869.00', 'isAdFee': True}, {'id': '5bc5c8450b06ca23f29fddc5', 'name': '春秋新款细跟舒适简约职业单鞋', 'subtitle': '春秋新款细跟舒适简约职业单鞋', 'goodsPic': 'https://static.ajgs.cn/product/1539688284000-103A8FD7.jpeg', 'currentPrice': '109.00', 'markPrice': '139.00', 'isAdFee': False}, {'id': '5b72436b0b06ca228f2f3bca', 'name': '红花郎10年酱香型白酒53%vol', 'subtitle': '红花郎10年酱香型白酒53%vol', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1534213556213-74-0E4B2AD1.jpeg', 'currentPrice': '318.00', 'markPrice': '459.00', 'isAdFee': False}, {'id': '5bc82a9f0b06ca23f29fea0e', 'name': '儿童鹿角造型针织帽', 'subtitle': '儿童鹿角造型针织帽', 'goodsPic': 'https://static.ajgs.cn/product/1539844645000-EDE478C3.jpeg', 'currentPrice': '29.00', 'markPrice': '45.00', 'isAdFee': False}, {'id': '5b3328410b06ca574e4f8c97', 'name': '韩国春雨蜂蜜卸妆水200ml', 'subtitle': '韩国春雨蜂蜜卸妆水200ml', 'goodsPic': 'https://static.ajgs.cn/test/rc-upload-1530078661684-7.jpeg', 'currentPrice': '128.00', 'markPrice': '130.00', 'isAdFee': True}, {'id': '5bd2bf950b06ca6900c1155c', 'name': 'WMM速锋无缝工艺中片刀具', 'subtitle': 'WMM速锋无缝工艺中片刀具', 'goodsPic': 'https://static.ajgs.cn/product/1540538213000-3BAF2783.jpeg', 'currentPrice': '99.00', 'markPrice': '129.00', 'isAdFee': False}, {'id': '5b7a20240b06ca384a4f4b9e', 'name': '（航院配送）力士沐浴露400ml', 'subtitle': '（航院配送）力士沐浴露400ml', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1534728366347-5-B9CD6E92.jpeg', 'currentPrice': '23.90', 'markPrice': '35.00', 'isAdFee': True}, {'id': '5b88e1c40b06ca13b59af55a', 'name': '80后怀旧玩具套圈圈游戏水机', 'subtitle': '80后怀旧玩具套圈圈游戏水机', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1535695923584-51-BB0631AA.jpeg', 'currentPrice': '9.90', 'markPrice': '15.00', 'isAdFee': False}, {'id': '5b610e940b06ca734cd0fd27', 'name': '听装系列铁观音', 'subtitle': '听装系列铁观音', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1533086245534-31-07B067D7.jpeg', 'currentPrice': '46.00', 'markPrice': '48.00', 'isAdFee': False}, {'id': '5b976c8a0b06ca038c1c53de', 'name': '公牛GN-U212TN自动防过充充电器', 'subtitle': '公牛GN-U212TN自动防过充充电器', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1536649720034-34-3FA4A7CD.jpeg', 'currentPrice': '65.00', 'markPrice': '75.00', 'isAdFee': True}, {'id': '5bd69f2f0b06ca51484deada', 'name': '（线下自提）昀昀无刺激柔韧抽纸3包赠4枚土鸡蛋', 'subtitle': '（线下自提）昀昀无刺激柔韧抽纸3包赠4枚土鸡蛋', 'goodsPic': 'https://static.ajgs.cn/product/1540791894000-4469FC3E.jpeg', 'currentPrice': '9.90', 'markPrice': '13.00', 'isAdFee': False}, {'id': '5b6d414a0b06ca228f2f257b', 'name': '（政欣艾家）海之言', 'subtitle': '（政欣艾家）海之言', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1533885487503-64-C5BF106B.jpeg', 'currentPrice': '4.00', 'markPrice': '4.00', 'isAdFee': False}, {'id': '5b9a2b8c0b06ca678442509e', 'name': '（中医大配送）双汇玉米热狗肠40g', 'subtitle': '（中医大配送）双汇玉米热狗肠40g', 'goodsPic': 'https://static.ajgs.cn/product/1536830301000-C6E0A1D4.jpeg', 'currentPrice': '1.00', 'markPrice': '2.00', 'isAdFee': True}, {'id': '5b9b85e6a81ff768aab4480e', 'name': '花印男士控油调理洁面乳130g', 'subtitle': '花印男士控油调理洁面乳130g', 'goodsPic': 'https://static.ajgs.cn/product/1536918882000-92312F79.jpeg', 'currentPrice': '79.00', 'markPrice': '99.00', 'isAdFee': False}, {'id': '5b335e740b06ca574e4f925c', 'name': '舒比拓按压式儿童贝齿牙膏75ml*2支', 'subtitle': '舒比拓按压式儿童贝齿牙膏75ml*2支', 'goodsPic': 'https://static.ajgs.cn/test/rc-upload-1530086439075-144.jpeg', 'currentPrice': '58.00', 'markPrice': '68.00', 'isAdFee': True}, {'id': '5b8cff870b06ca427b248382', 'name': '（民大配送）康元牛奶味威化115g', 'subtitle': '（民大配送）康元牛奶味威化115g', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1535966927322-5-90273E3C.jpeg', 'currentPrice': '4.00', 'markPrice': '5.00', 'isAdFee': True}, {'id': '5b321aa50b06ca49a708832e', 'name': '伊特露药用樱桃精华高保湿化妆水', 'subtitle': '伊特露药用樱桃精华高保湿化妆水', 'goodsPic': 'https://static.ajgs.cn/test/rc-upload-1530003910742-41.jpeg', 'currentPrice': '75.00', 'markPrice': '79.00', 'isAdFee': True}, {'id': '5b87b4fc0b06ca13b59ae573', 'name': '溢田东北有机粗粮绿豆980g', 'subtitle': '溢田东北有机粗粮绿豆980g', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1535619774428-39-EDBA72F4.jpeg', 'currentPrice': '19.90', 'markPrice': '34.80', 'isAdFee': False}, {'id': '5b32f8f60b06ca4c2b846021', 'name': '甜猫奶油摩卡夹心威化100g*3盒装', 'subtitle': '甜猫奶油摩卡夹心威化100g*3盒装', 'goodsPic': 'https://static.ajgs.cn/test/rc-upload-1530066416644-9.png', 'currentPrice': '49.00', 'markPrice': '52.00', 'isAdFee': True}, {'id': '5b568c780b06ca3b713c06b0', 'name': '（兰兰艾家）雪花勇闯天涯580ml', 'subtitle': '（兰兰艾家）雪花勇闯天涯580ml', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1533804812157-22-6204E88E.jpeg', 'currentPrice': '4.50', 'markPrice': '5.00', 'isAdFee': False}, {'id': '5b6e8d2e0b06ca228f2f2c90', 'name': '带盖带勺卡通创意长颈鹿马克杯480ml', 'subtitle': '带盖带勺卡通创意长颈鹿马克杯480ml', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1533970902237-60-7F3C184D.jpeg', 'currentPrice': '23.00', 'markPrice': '29.90', 'isAdFee': False}, {'id': '5bbeb7980b06ca4c8ccad4ea', 'name': '欧贝斯橄榄丝滑沐浴露750ml', 'subtitle': '欧贝斯橄榄丝滑沐浴露750ml', 'goodsPic': 'https://static.ajgs.cn/product/1539225347000-ED52F8EA.jpeg', 'currentPrice': '36.00', 'markPrice': '43.00', 'isAdFee': True}, {'id': '5b321ebf0b06ca49a70883b3', 'name': '清清美天然橡胶防滑手套6支/件', 'subtitle': '清清美天然橡胶防滑手套6支/件', 'goodsPic': 'https://static.ajgs.cn/test/rc-upload-1530009722287-45.jpeg', 'currentPrice': '7.50', 'markPrice': '12.00', 'isAdFee': True}, {'id': '5b556f440b06ca3b713bfc1c', 'name': '（兰兰艾家）怡宝矿泉水', 'subtitle': '（兰兰艾家）怡宝矿泉水', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1533801059427-45-72519B59.jpeg', 'currentPrice': '2.00', 'markPrice': '2.00', 'isAdFee': False}, {'id': '5b3374c00b06ca574e4f9411', 'name': '[海外直邮]CANMAKE完美雕刻五色眼影', 'subtitle': '[海外直邮]CANMAKE完美雕刻五色眼影', 'goodsPic': 'https://static.ajgs.cn/test/rc-upload-1530091388902-142.png', 'currentPrice': '98.00', 'markPrice': '100.00', 'isAdFee': True}, {'id': '5b97623a0b06ca038c1c5118', 'name': '公牛GN-612迷你插线板1.8/3米*2件', 'subtitle': '公牛GN-612迷你插线板1.8/3米', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1536646286628-32-2051EE05.jpeg', 'currentPrice': '29.90', 'markPrice': '48.00', 'isAdFee': True}, {'id': '5b9b777ba81ff768aab4452f', 'name': '花印纳豆弹润绽亮眼霜30g', 'subtitle': '花印纳豆弹润绽亮眼霜30g', 'goodsPic': 'https://static.ajgs.cn/product/1536915254000-A1F3C992.jpeg', 'currentPrice': '159.00', 'markPrice': '219.00', 'isAdFee': False}, {'id': '5b7930540b06ca384a4f4962', 'name': '清菲无香原木孕婴抽纸3层24包', 'subtitle': '清菲无香原木孕婴抽纸3层24包', 'goodsPic': 'https://static.ajgs.cn/product/rc-upload-1534668493481-7-8C4E8998.jpeg', 'currentPrice': '29.90', 'markPrice': '45.00', 'isAdFee': False}]}}
+查询成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_04: 启动广告页</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.4')" >
+        通过</a>
+
+    <div id='div_pt1.4' class="popup_window">
+        <pre>pt1.4: {'success': True, 'alertMsg': {'code': '000000'}, 'data': [{'_id': '5b38d9320b06ca2273875ca8', 'insideJumpFormat': 'no', 'name': '引导页', 'memo': '引导页第一张图', 'picture': 'https://static.ajgs.cn/product/rc-upload-1530451828492-2-440E2CA4.jpeg', 'insideJumpFormatVal': {'id': 'no'}, 'advertisingPosition': 'START_UP_AFTER'}, {'_id': '5b38d9620b06ca2273875caa', 'insideJumpFormat': 'no', 'name': '引导页', 'memo': '引导页第二张图', 'picture': 'https://static.ajgs.cn/product/rc-upload-1530451828492-5-1D89CD50.jpeg', 'insideJumpFormatVal': {'id': 'no'}, 'advertisingPosition': 'START_UP_AFTER'}, {'_id': '5b38d9860b06ca2273875cac', 'insideJumpFormat': 'no', 'name': '引导页', 'memo': '引导页第三张图', 'picture': 'https://static.ajgs.cn/product/rc-upload-1530451828492-8-6798AF49.jpeg', 'insideJumpFormatVal': {'id': 'no'}, 'advertisingPosition': 'START_UP_AFTER'}, {'_id': '5b38d9a90b06ca2273875cae', 'insideJumpFormat': 'no', 'name': '引导页', 'memo': '引导页第四张图', 'picture': 'https://static.ajgs.cn/product/rc-upload-1530451828492-11-EEE384F2.jpeg', 'insideJumpFormatVal': {'id': 'no'}, 'advertisingPosition': 'START_UP_AFTER'}]}
+启动成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.5' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_05: 获取首页地址</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.5')" >
+        通过</a>
+
+    <div id='div_pt1.5' class="popup_window">
+        <pre>pt1.5: {'success': True, 'alertMsg': {'code': '000000'}, 'data': {'indexAccessUrl': 'https://yqltest.godteam.net'}}
+获取成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.6' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_06: 获取首页数据</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.6')" >
+        通过</a>
+
+    <div id='div_pt1.6' class="popup_window">
+        <pre>pt1.6: {'success': True, 'alertMsg': {'code': '000000'}, 'data': [{'type': 'advertise', 'data': [{'_id': '5bcfe05d0b06ca6900c1067f', 'insideJumpFormat': 'goods', 'name': '艾尚艾家双11礼包', 'memo': '', 'picture': 'https://static.ajgs.cn/product/1540349888000-223C11D0.jpeg', 'insideJumpFormatVal': {'id': '5bcfddf60b06ca6900c105f6'}, 'advertisingPosition': 'HOME_PAGE_ONE'}, {'_id': '5ba9e4890b06ca3fcece6311', 'insideJumpFormat': 'fresh', 'name': '飞利浦专场', 'memo': '', 'picture': 'https://static.ajgs.cn/product/1537861542000-0563C2E8.jpeg', 'insideJumpFormatVal': {'id': '5ba9e4270b06ca3fcece62e2'}, 'advertisingPosition': 'HOME_PAGE_ONE'}]}, {'type': 'buttonMenu', 'data': [{'_id': '5b338c210b06ca574e4f96a2', 'insideJumpFormat': 'fresh', 'name': '艾家自营', 'insideJumpFormatVal': {'id': '5b36e7b70b06ca02986c5325'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539077013000-02A2652B.jpeg'}, {'_id': '5b338a810b06ca574e4f9694', 'insideJumpFormat': 'fresh', 'name': '海外精选', 'insideJumpFormatVal': {'id': '5b36e1660b06ca02986c5317'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-41-317BC568.png'}, {'_id': '5b338bf00b06ca574e4f969e', 'insideJumpFormat': 'fresh', 'name': '艾家生活', 'insideJumpFormatVal': {'id': '5b36e1780b06ca02986c5318'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-44-370DD6C7.png'}, {'_id': '5b338a670b06ca574e4f9692', 'insideJumpFormat': 'fresh', 'name': '新品NEW', 'insideJumpFormatVal': {'id': '5b3604ce0b06ca02986c5291'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-47-F916581D.png'}, {'_id': '5b338c0a0b06ca574e4f96a0', 'insideJumpFormat': 'fresh', 'name': '艾家厨房', 'insideJumpFormatVal': {'id': '5b36e1830b06ca02986c5319'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-50-386FA680.png'}, {'_id': '5b338c6e0b06ca574e4f96a8', 'insideJumpFormat': 'fresh', 'name': '艾上实惠', 'insideJumpFormatVal': {'id': '5b36e4600b06ca02986c531a'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-53-2D29606F.png'}, {'_id': '5b338c590b06ca574e4f96a6', 'insideJumpFormat': 'fresh', 'name': '艾上生鲜', 'insideJumpFormatVal': {'id': '5b36e4790b06ca02986c531b'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1532507609501-62-F761CF6A.png'}, {'_id': '5b338c3d0b06ca574e4f96a4', 'insideJumpFormat': 'merchantClassify', 'name': '艾家校园', 'insideJumpFormatVal': {'id': '5b3606a90b06ca02986c5295'}, 'menuPicUrl': 'https://static.ajgs.cn/product/rc-upload-1535361184087-10-14826412.jpeg'}]}, {'type': 'advertise', 'data': [{'_id': '5bce79df0b06ca6900c0ffd2', 'insideJumpFormat': 'goods', 'name': '品牌一元购', 'memo': '', 'picture': 'https://static.ajgs.cn/product/1540948803000-DB6ECF91.jpeg', 'insideJumpFormatVal': {'id': '5bbb02650b06ca41678edf4e'}, 'advertisingPosition': 'HOME_PAGE_TWO'}, {'_id': '5bce7a580b06ca6900c0ffea', 'insideJumpFormat': 'goods', 'name': '品牌一元购', 'memo': '', 'picture': 'https://static.ajgs.cn/product/1540948813000-F4EAC9D5.jpeg', 'insideJumpFormatVal': {'id': '5b7fa7020b06ca3256aa2901'}, 'advertisingPosition': 'HOME_PAGE_TWO'}]}, {'type': 'picMenu', 'data': [{'_id': '5b836b420b06ca3256aa3a2b', 'insideJumpFormat': 'fresh', 'name': '福袋专区', 'insideJumpFormatVal': {'id': '5ba4c1390b06ca3fcece49f5'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539667997000-27AEFD38.jpeg'}, {'_id': '5ba1a9c30b06ca08d098c937', 'insideJumpFormat': 'fresh', 'name': '9.9元专区', 'insideJumpFormatVal': {'id': '5ba0eeb50b06ca08d098c193'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539668010000-C0DFFA5A.jpeg'}, {'_id': '5ba1aa170b06ca08d098c991', 'insideJumpFormat': 'fresh', 'name': '19.9元专区', 'insideJumpFormatVal': {'id': '5ba0f0ed0b06ca08d098c22a'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539668021000-C33629CA.jpeg'}, {'_id': '5b338d210b06ca574e4f96aa', 'insideJumpFormat': 'fresh', 'name': '艾家自营', 'insideJumpFormatVal': {'id': '5b36e7b70b06ca02986c5325'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1540620126000-35865BF9.jpeg'}, {'_id': '5ba1aa380b06ca08d098c99c', 'insideJumpFormat': 'fresh', 'name': '29.9元专区', 'insideJumpFormatVal': {'id': '5ba0f21b0b06ca08d098c2b6'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539668035000-22AF3596.jpeg'}, {'_id': '5b338d670b06ca574e4f96ae', 'insideJumpFormat': 'fresh', 'name': '爱生活', 'insideJumpFormatVal': {'id': '5b36e5050b06ca02986c531e'}, 'menuPicUrl': 'https://static.ajgs.cn/product/1539668071000-314443B4.jpeg'}]}, {'type': 'merchant', 'moduleName': '艾家公社专区', 'data': {'id': '5b18d7ca0b06ca7ab6d6bd74', 'pictureUrl': 'https://static.ajgs.cn/product/rc-upload-1530329485922-19.png', 'merchantName': '艾家公社', 'typeName': '日用品', 'describe': '日用品、消耗品、', 'miniPrice': '1.00', 'partitionName': '艾家公社专区', 'logoUrL': 'https://static.ajgs.cn/product/1540352365000-FD131B8B.png', 'storeName': '艾家公社'}}, {'type': 'companyMenu', 'moduleName': '品牌艾家', 'data': [{'id': '5bdc1a044aa423331dc74944', 'pictureUrl': ['https://static.ajgs.cn/test/rc-upload-1530779577782-2-7644CE6B.png'], 'merchantName': 'B9CyoS9S商家名称', 'typeName': '商家类别QpsgG', 'describe': '商家类别描述！', 'miniPrice': '0.00', 'partitionName': 'B9CyoS9S商家名称专区'}, {'id': '5bdbfa764aa423da64e14018', 'pictureUrl': ['https://static.ajgs.cn/test/rc-upload-1530779577782-2-7644CE6B.png'], 'merchantName': 'aD1zAR6u商家名称', 'typeName': '商家类别BajpQ', 'describe': '商家类别描述！', 'miniPrice': '0.00', 'partitionName': 'aD1zAR6u商家名称专区'}, {'id': '5bdbfa624aa423da64e13fb2', 'pictureUrl': ['https://static.ajgs.cn/test/rc-upload-1530779577782-2-7644CE6B.png'], 'merchantName': 'pEQqWvnt商家名称', 'typeName': '商家类别sMVjD', 'describe': '商家类别描述！', 'miniPrice': '0.00', 'partitionName': 'pEQqWvnt商家名称专区'}, {'id': '5bdbf9f04aa423da64e13f4c', 'pictureUrl': ['https://static.ajgs.cn/test/rc-upload-1530779577782-2-7644CE6B.png'], 'merchantName': 'ovtSaI3M商家名称', 'typeName': '商家类别y6703', 'describe': '商家类别描述！', 'miniPrice': '0.00', 'partitionName': 'ovtSaI3M商家名称专区'}]}, {'type': 'promotion', 'data': {'promotionId': '5b3746dd0b06ca02986c551d', 'promomtionName': '限量1元购', 'promotionType': 'GOODS_TYPE', 'renderType': 'VERTICAL_SHOW', 'promotionDetail': [{'goodsId': '5b7fa7020b06ca3256aa2901', 'goodsName': '金龙鱼非转基因压榨外婆乡小榨菜籽油400ml', 'nowMarkPrice': '13.00', 'currentPrice': '1.00', 'goodPic': 'https://static.ajgs.cn/product/rc-upload-1535092026172-5-F14D40CA.jpeg', 'isAdFee': True}, {'goodsId': '5bbb02650b06ca41678edf4e', 'goodsName': '山西上水井老陈醋三年陈酿小白盒醋150ml', 'nowMarkPrice': '15.00', 'currentPrice': '1.00', 'goodPic': 'https://static.ajgs.cn/product/1540951329000-FD25DFA5.jpeg', 'isAdFee': True}], 'advertise': []}}, {'type': 'promotion', 'data': {'promotionId': '5b373f4d0b06ca02986c54e1', 'promomtionName': '专题精选', 'promotionType': 'THEMATIC_TYPE', 'renderType': 'HORIZONTAL_SHOW', 'promotionDetail': [{'themeId': '5bb06d7b0b06ca08c77df565', 'themeName': '什么是福袋？', 'describe': '福袋', 'money': '10.00', 'themePic': 'https://static.ajgs.cn/product/1538289018000-B617432F.jpeg'}, {'themeId': '5b7d2a710b06ca384a4f6410', 'themeName': '艾家公社粮票详解', 'describe': '什么是粮票？粮票可以做什么？如何得到粮票？', 'money': '19.90', 'themePic': 'https://static.ajgs.cn/product/rc-upload-1534928578482-2-C8660B54.jpeg'}], 'advertise': []}}], 'shareMsg': {'title': '艾家公社微信购物全新升级', 'titleReplace': {'userName': '', 'payMoney': '', 'payType': '', 'redPacketNum': '', 'redPacketTotal': '', 'merchantName': '', 'merchantDesc': '', 'themeName': '', 'themeDesc': '', 'goodsName': '', 'goodsPrice': '', 'articleTitle': '', 'articleContent': '', 'menuName': '', 'award': ''}, 'description': '艾家公社微信购物全新升级啦！和好友一起挑选好货，一起晒单赢大奖！', 'desReplace': {'userName': '', 'payMoney': '', 'payType': '', 'redPacketNum': '', 'redPacketTotal': '', 'merchantName': '', 'merchantDesc': '', 'themeName': '', 'themeDesc': '', 'goodsName': '', 'goodsPrice': '', 'articleTitle': '', 'articleContent': '', 'menuName': '', 'award': '', 'out': {}}, 'link': 'https://yqltest.godteam.net/default?parentId=&amp;boundCompanyId=', 'linkReplace': {'params': '', 'type': '/default', 'out': {}}, 'picture': 'https://static.ajgs.cn/product/1540352365000-FD131B8B.png'}}
+获取成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.7' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_07: 主页分类</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.7')" >
+        通过</a>
+
+    <div id='div_pt1.7' class="popup_window">
+        <pre>pt1.7: {'alertMsg': {'code': '000000', 'msg': '查询成功'}, 'data': [{'id': '5bd919964aa4230c597efe8d', 'name': '一级分类72247', 'sort': 44, 'icon': None, 'childrens': [{'id': '5bd919974aa4230c597efe93', 'name': '二级分类61361', 'sort': 50, 'icon': 'https://static.ajgs.cn/test/rc-upload-1534494122101-14-88D170D4.jpeg', 'childrens': []}]}, {'id': '5bd919cf4aa4230c597eff27', 'name': '一级分类51491', 'sort': 43, 'icon': None, 'childrens': [{'id': '5bd919d14aa4230c597eff2d', 'name': '二级分类16671', 'sort': 75, 'icon': 'https://static.ajgs.cn/test/rc-upload-1534494122101-14-88D170D4.jpeg', 'childrens': []}]}, {'id': '5bd9190d4aa4230c597efe11', 'name': '一级分类61602', 'sort': 37, 'icon': None, 'childrens': [{'id': '5bd9190e4aa4230c597efe17', 'name': '二级分类46740', 'sort': 94, 'icon': 'https://static.ajgs.cn/test/rc-upload-1534494122101-14-88D170D4.jpeg', 'childrens': []}]}, {'id': '5bd956b14aa4230c597f01ac', 'name': '一级分类21395', 'sort': 14, 'icon': None, 'childrens': [{'id': '5bd956b24aa4230c597f01b2', 'name': '二级分类96586', 'sort': 56, 'icon': 'https://static.ajgs.cn/test/rc-upload-1534494122101-14-88D170D4.jpeg', 'childrens': []}]}, {'id': '5bd91fec4aa4230c597effe0', 'name': '一级分类63812', 'sort': 12, 'icon': None, 'childrens': [{'id': '5bd91fed4aa4230c597effe6', 'name': '二级分类34588', 'sort': 25, 'icon': 'https://static.ajgs.cn/test/rc-upload-1534494122101-14-88D170D4.jpeg', 'childrens': []}]}, {'id': '5bd918c44aa4230c597efd86', 'name': '一级分类52997', 'sort': 10, 'icon': None, 'childrens': [{'id': '5bd918c54aa4230c597efd8c', 'name': '二级分类92861', 'sort': 86, 'icon': 'https://static.ajgs.cn/test/rc-upload-1534494122101-14-88D170D4.jpeg', 'childrens': []}]}, {'id': '5b42bb9f0b06ca60af0cfbc1', 'name': '线下服务', 'sort': 2, 'icon': None, 'childrens': []}, {'id': '5bdc19ff4aa423331dc74910', 'name': '商品分类1mS0dG', 'sort': 1, 'icon': None, 'childrens': [{'id': '5bdc1a004aa423331dc74918', 'name': '商品分类2xMh1t', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5bdbfa724aa423da64e13fe1', 'name': '商品分类1UULnI', 'sort': 1, 'icon': None, 'childrens': [{'id': '5bdbfa724aa423da64e13fe9', 'name': '商品分类2vVzCC', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5bdbfa5e4aa423da64e13f7b', 'name': '商品分类18XpsH', 'sort': 1, 'icon': None, 'childrens': [{'id': '5bdbfa5e4aa423da64e13f83', 'name': '商品分类25ylkE', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5bdbf9eb4aa423da64e13f15', 'name': '商品分类1jb3dy', 'sort': 1, 'icon': None, 'childrens': [{'id': '5bdbf9ec4aa423da64e13f1d', 'name': '商品分类2iNaA6', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5bdbf9914aa423da64e13ed1', 'name': '商品分类1M3XyY', 'sort': 1, 'icon': None, 'childrens': [{'id': '5bdbf9924aa423da64e13ed9', 'name': '商品分类2tjsEp', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5bc458eda81ff72c8b05c513', 'name': '教育培训', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b5ecb5b0b06ca734cd0e4ed', 'name': '办公用品', 'sort': 1, 'icon': None, 'childrens': [{'id': '5b8f6c950b06ca038c1be95d', 'name': '文具书包', 'sort': 1, 'icon': 'https://static.ajgs.cn/product/rc-upload-1536127624656-2-F1ABB69C.jpeg', 'childrens': []}]}, {'id': '5b224caa0b06ca7ab6d6bef1', 'name': '服装鞋包', 'sort': 1, 'icon': None, 'childrens': [{'id': '5b5ed3f50b06ca734cd0e5e4', 'name': '袜类', 'sort': 1, 'icon': 'https://static.ajgs.cn/product/1540098771000-B2B48357.png', 'childrens': []}, {'id': '5bc8234e0b06ca23f29fe9a0', 'name': '围巾围脖', 'sort': 1, 'icon': 'https://static.ajgs.cn/product/1540098760000-05F26758.png', 'childrens': []}, {'id': '5b224d470b06ca7ab6d6bef5', 'name': '女装', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-138.png', 'childrens': []}, {'id': '5b224d540b06ca7ab6d6bef6', 'name': '女鞋', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-135.png', 'childrens': []}, {'id': '5b224d6f0b06ca7ab6d6bef7', 'name': '箱包皮具', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-132.png', 'childrens': []}, {'id': '5b224db60b06ca7ab6d6bef8', 'name': '男女内衣', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-129.png', 'childrens': []}, {'id': '5b224de50b06ca7ab6d6bef9', 'name': '服饰配件', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-126.png', 'childrens': []}]}, {'id': '5b224e080b06ca7ab6d6befa', 'name': '手机数码', 'sort': 1, 'icon': None, 'childrens': [{'id': '5b224e420b06ca7ab6d6befb', 'name': '3C数码配件', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-158.png', 'childrens': []}]}, {'id': '5b224ef60b06ca7ab6d6befd', 'name': '美妆饰品', 'sort': 1, 'icon': None, 'childrens': [{'id': '5b224f0e0b06ca7ab6d6befe', 'name': '彩妆/香水/美妆工具', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-123.png', 'childrens': []}, {'id': '5b224fc00b06ca7ab6d6bf01', 'name': '饰品/流行首饰', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-120.png', 'childrens': []}, {'id': '5b224f770b06ca7ab6d6bf00', 'name': '美发护发', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-117.png', 'childrens': [{'id': '5b69501e0b06ca23cd44afea', 'name': '头发护理', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b63b8150b06ca1a0a6710c3', 'name': '保湿定型发蜡', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2b17e90b06ca7ab6d6c043', 'name': '护发素/洗发水/洗护套装', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5b224f220b06ca7ab6d6beff', 'name': '美妆护肤/美体/精油', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-114.png', 'childrens': []}]}, {'id': '5b2252e60b06ca7ab6d6bf13', 'name': '百货食品', 'sort': 1, 'icon': None, 'childrens': [{'id': '5b2b22e60b06ca7ab6d6c0a6', 'name': '酒类', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-190.png', 'childrens': [{'id': '5b2b3a0d0b06ca7ab6d6c0b6', 'name': '其他酒类', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2b39ec0b06ca7ab6d6c0b4', 'name': '葡萄酒', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2b39dc0b06ca7ab6d6c0b3', 'name': '白酒', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2b39c10b06ca7ab6d6c0aa', 'name': '啤酒', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5b2384ee0b06ca7ab6d6bf35', 'name': '家庭/个人清洁工具', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-180.png', 'childrens': []}, {'id': '5b29ee850b06ca7ab6d6bf87', 'name': '洗护清洁剂/卫生巾/纸/香薰', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-176.png', 'childrens': [{'id': '5b2b6db40b06ca7ab6d6c1e8', 'name': '口腔护理', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2b6c870b06ca7ab6d6c1c6', 'name': '家庭环境清洁剂', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b29f0700b06ca7ab6d6bf8e', 'name': '纸品', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b29f0350b06ca7ab6d6bf8d', 'name': '衣物清洁剂/护理剂', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b29efcc0b06ca7ab6d6bf8c', 'name': '卫生巾/护垫/成人尿裤', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b29ef8a0b06ca7ab6d6bf8b', 'name': '头发清洁/护理/造型', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b29ef3a0b06ca7ab6d6bf8a', 'name': '身体护理', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b29eefb0b06ca7ab6d6bf89', 'name': '身体清洁', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b29eec40b06ca7ab6d6bf88', 'name': '室内除臭/芳香用品', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5b2386810b06ca7ab6d6bf38', 'name': '粮油米面/南北干货/调味品', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-168.png', 'childrens': [{'id': '5b2386960b06ca7ab6d6bf39', 'name': '调味品/果酱/沙拉', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2387750b06ca7ab6d6bf3c', 'name': '食用油/调味油', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2387380b06ca7ab6d6bf3b', 'name': '米/面粉/杂粮', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2386d30b06ca7ab6d6bf3a', 'name': '方便速食', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5b2385200b06ca7ab6d6bf37', 'name': '零食/坚果/特产', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-165.png', 'childrens': []}, {'id': '5b2252fe0b06ca7ab6d6bf14', 'name': '居家日用', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-90.png', 'childrens': [{'id': '5b2256b00b06ca7ab6d6bf26', 'name': '鞋用品', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2256280b06ca7ab6d6bf24', 'name': '扇/迷你风扇/配件/冰垫', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2255f40b06ca7ab6d6bf23', 'name': '伞/雨具/防潮', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2255320b06ca7ab6d6bf1d', 'name': '驱虫用品', 'sort': 1, 'icon': None, 'childrens': [{'id': '5b2b844b0b06ca7ab6d6c31a', 'name': '驱蚊花露水', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2255a10b06ca7ab6d6bf21', 'name': '灭蚊灯/吸蚊灯/灭蝇灯', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2255870b06ca7ab6d6bf20', 'name': '防霉防蛀', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2255770b06ca7ab6d6bf1f', 'name': '防蚊贴/防蚊手环', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b22554a0b06ca7ab6d6bf1e', 'name': '苍蝇拍', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5b2255120b06ca7ab6d6bf1c', 'name': '毛巾/浴巾/浴袍', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2254da0b06ca7ab6d6bf1b', 'name': '家居智能设备', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2253fb0b06ca7ab6d6bf18', 'name': '节日/派对庆典用品', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2253d40b06ca7ab6d6bf17', 'name': '防护用品', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2253540b06ca7ab6d6bf16', 'name': '创意礼品', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2253210b06ca7ab6d6bf15', 'name': '保暖贴/怀炉/保暖用品', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5b2256df0b06ca7ab6d6bf27', 'name': '厨房/烹饪用具', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-87.png', 'childrens': [{'id': '5b2257400b06ca7ab6d6bf2a', 'name': '烧烤/烘焙用具', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2257140b06ca7ab6d6bf29', 'name': '烹饪用具', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2256f70b06ca7ab6d6bf28', 'name': '厨用小工具/厨房储物', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5b2385010b06ca7ab6d6bf36', 'name': '传统滋补营养品', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-81.png', 'childrens': []}, {'id': '5b29f0da0b06ca7ab6d6bf8f', 'name': '咖啡/麦片/冲饮', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-74.png', 'childrens': []}, {'id': '5b29f1110b06ca7ab6d6bf90', 'name': '保健食品/膳食营养补充食品', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-71.png', 'childrens': []}, {'id': '5b29f1910b06ca7ab6d6bf91', 'name': '水产肉类/新鲜蔬果/熟食', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-68.png', 'childrens': []}, {'id': '5b29f22a0b06ca7ab6d6bf92', 'name': '餐饮具', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-65.png', 'childrens': []}, {'id': '5b29f2750b06ca7ab6d6bf93', 'name': '收纳整理', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-62.png', 'childrens': [{'id': '5b2b4aa70b06ca7ab6d6c127', 'name': '家庭防尘用具', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2b4a6e0b06ca7ab6d6c125', 'name': '家庭整理用具', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2b4a210b06ca7ab6d6c123', 'name': '家庭收纳用具', 'sort': 1, 'icon': None, 'childrens': []}, {'id': '5b2b49bc0b06ca7ab6d6c122', 'name': '衣物洗/晒/护理用具', 'sort': 1, 'icon': None, 'childrens': []}]}, {'id': '5b29f2b40b06ca7ab6d6bf94', 'name': '茶叶', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-59.png', 'childrens': []}]}, {'id': '5b224fd80b06ca7ab6d6bf02', 'name': '母婴用品', 'sort': 1, 'icon': None, 'childrens': [{'id': '5b2250e00b06ca7ab6d6bf05', 'name': '童装/婴儿装/亲子装', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-180.png', 'childrens': []}, {'id': '5b2250f40b06ca7ab6d6bf06', 'name': '童鞋/婴儿鞋/亲子鞋', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-171.png', 'childrens': []}, {'id': '5b2250ca0b06ca7ab6d6bf04', 'name': '尿片/洗护/喂辅', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-149.png', 'childrens': []}, {'id': '5b22509d0b06ca7ab6d6bf03', 'name': '奶粉/辅食/营养品/零食', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-111.png', 'childrens': []}, {'id': '5b2251330b06ca7ab6d6bf08', 'name': '玩具/童车/益智/积木/模型', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-108.png', 'childrens': []}]}, {'id': '5b29f3290b06ca7ab6d6bf95', 'name': '家用电器', 'sort': 1, 'icon': None, 'childrens': [{'id': '5b29f7160b06ca7ab6d6bf9a', 'name': '个人护理/保健/按摩器材', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-184.png', 'childrens': []}, {'id': '5b29f39f0b06ca7ab6d6bf96', 'name': '影音电器', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-56.png', 'childrens': []}, {'id': '5b29f4370b06ca7ab6d6bf97', 'name': '生活电器', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-53.png', 'childrens': []}, {'id': '5b29f4b40b06ca7ab6d6bf98', 'name': '厨房电器', 'sort': 1, 'icon': 'https://static.ajgs.cn/test/rc-upload-1530084160900-48.png', 'childrens': []}]}], 'success': True, 'total': 0}
+获取成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.8' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_08: 分类列表-筛选商品页面</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.8')" >
+        通过</a>
+
+    <div id='div_pt1.8' class="popup_window">
+        <pre>pt1.8: {'success': True, 'alertMsg': {'code': '000000', 'msg': '查询成功'}, 'data': [{'title': '分类', 'subTitle': [{'params': '二级分类61361', 'menuId': '5bd919974aa4230c597efe93'}], 'sign': 1}, {'title': '配送方式', 'subTitle': [{'params': '物流配送', 'id': 0}, {'params': '线下自提', 'id': 1}], 'sign': 3}]}
+获取成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.9' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_09: 分类商品列表(人气/价格/筛选)</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.9')" >
+        通过</a>
+
+    <div id='div_pt1.9' class="popup_window">
+        <pre>pt1.9: {'success': True, 'alertMsg': {'code': '000000', 'msg': '查询成功'}, 'data': [{'goodsId': '5bd9199b4aa4230c597efec2', 'skuId': '5bd9199b4aa4230c597efec3', 'skuParams': '西红柿番茄味/150g', 'mainPic': 'https://static.ajgs.cn/product/rc-upload-1530585113624-18-40DD27E5.jpeg', 'currentPrice': '16.80', 'markPrice': '16.80', 'goodsName': '兴古艾家3464的商品', 'subtitle': 'test商品46595', 'adFeeRule': '5bd919984aa4230c597efe9e', 'newGoods': True, 'isSeckill': False, 'isAdFee': True, 'shoppingGoodsNum': 0}], 'shareMsg': {'title': '艾家优质商品', 'titleReplace': {'userName': '', 'payMoney': '', 'payType': '', 'redPacketNum': '', 'redPacketTotal': '', 'merchantName': '', 'merchantDesc': '', 'themeName': '', 'themeDesc': '', 'goodsName': '', 'goodsPrice': '', 'articleTitle': '', 'articleContent': '', 'menuName': '一级分类72247', 'award': ''}, 'description': '搜索全部艾家公社商品，多块好省任你找寻', 'desReplace': {'userName': '', 'payMoney': '', 'payType': '', 'redPacketNum': '', 'redPacketTotal': '', 'merchantName': '', 'merchantDesc': '', 'themeName': '', 'themeDesc': '', 'goodsName': '', 'goodsPrice': '', 'articleTitle': '', 'articleContent': '', 'menuName': '一级分类72247', 'award': '', 'out': {}}, 'link': 'https://yqltest.godteam.net/ClassifyList/5bd919964aa4230c597efe8d?parentId=&amp;boundCompanyId=', 'linkReplace': {'params': '5bd919964aa4230c597efe8d', 'type': '/ClassifyList/', 'out': {}}, 'picture': 'https://static.ajgs.cn/product/1540352365000-FD131B8B.png'}, 'menuName': {'5bd919964aa4230c597efe8d': '一级分类72247'}}
+获取成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.10' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_10: 某个商品评论-有图列表</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.10')" >
+        通过</a>
+
+    <div id='div_pt1.10' class="popup_window">
+        <pre>pt1.10: {'success': True, 'alertMsg': {'code': '000000', 'msg': '查询成功'}, 'data': []}
+获取成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.11' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_11: 某个商品评论-所有评论</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.11')" >
+        通过</a>
+
+    <div id='div_pt1.11' class="popup_window">
+        <pre>pt1.11: {'success': True, 'alertMsg': {'code': '000000', 'msg': '查询成功'}, 'data': {'dataList': [], 'count': {'allNO': 0, 'picNO': 0, 'goodNO': 0, 'mediumNO': 0, 'badNO': 0}}}
+获取成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.12' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_12: 某个商品评论-好评</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.12')" >
+        通过</a>
+
+    <div id='div_pt1.12' class="popup_window">
+        <pre>pt1.12: {'success': True, 'alertMsg': {'code': '000000', 'msg': '查询成功'}, 'data': []}
+获取成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.13' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_13: 某个商品评论-中评</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.13')" >
+        通过</a>
+
+    <div id='div_pt1.13' class="popup_window">
+        <pre>pt1.13: {'success': True, 'alertMsg': {'code': '000000', 'msg': '查询成功'}, 'data': []}
+获取成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.14' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_14: 某个商品评论-差评</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.14')" >
+        通过</a>
+
+    <div id='div_pt1.14' class="popup_window">
+        <pre>pt1.14: {'success': True, 'alertMsg': {'code': '000000', 'msg': '查询成功'}, 'data': []}
+获取成功
+case over
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='ft1.15' class='none'>
+    <td class='failCase'><div class='testcase'>test_15</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.15')" >
+        失败</a>
+
+    <div id='div_ft1.15' class="popup_window">
+        <pre>ft1.15: {'orderSource': '0', 'customer': '801122466705', 'source': 3, 'receiveInfo': '{"name":"邵新林","phone":"17602882784","location":"四川省成都市锦江区海椒市街15号21栋"}', 'dispatchType': '0', 'goods': '{"goodsId":"5bd2c39b0b06ca6900c1158c","goodsSku":"5bd2c39b0b06ca6900c1158d","count":1}'}
+{'Authorization':'801122466705'}
+{'success': False, 'alertMsg': {'code': '500000', 'msg': '实体不存在!'}}
+下单失败
+case over
+Traceback (most recent call last):
+  File "D:\zidonghua\test_api\test_case\cases.py", line 273, in test_15
+    self.assertEqual(r.json()['success'], b.read_success(14))
+AssertionError: False != True
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+        <tr id='total_row'>
+            <td>总计</td>
+            <td>15</td>
+            <td>14</td>
+            <td>1</td>
+            <td>0</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+
+        <div id='ending'>&nbsp;</div>
+        
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '测试执行情况',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ['#95b75d', 'grey', '#b64645'],
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['通过','失败','错误']
+            },
+            series : [
+                {
+                    name: '测试执行情况',
+                    type: 'pie',
+                    radius : '60%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:14, name:'通过'},
+                        {value:1, name:'失败'},
+                        {value:0, name:'错误'}
+                    ],
+                    labelLine:
+                        {
+                            show: false,
+                            lineStyle:{
+                                color:'transparent'
+                            },
+                        },
+                    label:
+                        {
+                            formatter:(d) => {
+                            return ''
+                        }
+                    },
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    
+    </div>
+</body>
+</html>
