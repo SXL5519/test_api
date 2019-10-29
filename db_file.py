@@ -39,6 +39,7 @@ class DB:
         :return:
         """
         client = MongoClient(host=host,port=port)
+        client.admin.authenticate("admin", "ajgs1818!@#", mechanism='SCRAM-SHA-1')
         db = client[database]
         print(db)
         collection = db[table]

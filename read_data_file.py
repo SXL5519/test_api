@@ -86,3 +86,20 @@ class Readfile():
             #返回Params列的所有数据
             sql_Table = [row['title'] for row in read]
         return sql_Table[i]
+
+
+    def read(self):
+        with open("G:\yali\order.csv","r") as csvfile:
+            # 读取csv文件，返回的是迭代类型
+            read = csv.DictReader(csvfile)
+            #返回Params列的所有数据
+            sql_Table = [row['id'] for row in read]
+        return sql_Table
+
+    def read_tel(self):
+        with open("G:/yali/newtel.csv","r") as csvfile:
+            # 读取csv文件，返回的是迭代类型
+            read = csv.DictReader(csvfile)
+            #返回Params列的所有数据
+            sql_Table = [row['tel'] for row in read]
+        return sql_Table
